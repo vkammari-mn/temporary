@@ -6,8 +6,72 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+ form input, form select {
+     max-width: 70%;
+     display: inline-block;
+    }
+  form label {
+    width: 25%;
+  }
+span {
+            display: block;
+            overflow: hidden;
+            padding: 0px 4px 0px 6px;
+        }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+#btn,#lgn {
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+}
+/* Split the screen in half */
+.split {
+  /*height: 100%;*/
+  /*width: 50%;*/
+  /*position: fixed;*/
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  margin: auto;
+}
+.txt,.inline{
+  display: inline;
+}
+h1 {
+  margin:auto;
+  text-align:center;
+}
+/* Control the left side */
+.left {
+  left: 0;
+  background-color: #ffffff;
+}
+#btn{
+  margin-right: 30px;
+}
+/* Control the right side */
+.right {
+  padding-top: 50px;
+  padding-left: 900px;
+  margin: auto;
+  right: 0;
+  background-color: white;
+}
+
+/* If you want the content centered horizontally and vertically */
+/*.centered {*/
+  /*position: absolute;*/
+  /*top: 50%;*/
+  /*left: 50%;*/
+  /*transform: translate(-50%, -50%);*/
+  /*text-align: center;*/
+/*}*/
+
+/* Style the image inside the centered container, if needed */
+/*.centered img {*/
+  /*width: 150px;*/
+  /*border-radius: 50%;*/
+/*}*/
