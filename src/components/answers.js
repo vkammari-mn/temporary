@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import AnswerData from './answer-text.js';
 
 class Answers extends Component {
 	constructor(props){
@@ -8,7 +9,8 @@ class Answers extends Component {
 		}
 	}
 	async componentDidMount(){
-		const url = "http://mnipdrbhavanam:8088/LSForum/login/answer?qid="+this.props.qid
+		const url = "http://mnipdrbhavanam:8888/lsforum/login/answer?qid="+this.props.qid
+		//console.log(this.props.qid)
 		let result = await fetch(url,{
 			method:'GET',
 			mode:'cors',
@@ -23,7 +25,10 @@ class Answers extends Component {
 			const p = answer[i]
 			const ans = p['answer']
 			const aid = p['aid']
-			this.setState({pre : [ans,aid]})
+			const username = p['username']
+			const date = p['dateOfPosted']
+			console.log(p)
+			this.setState({pre : [ans,aid,username,date]})
 			let {answers, pre} = this.state
 			answers.push(pre)
 			//console.log(ans,aid)
@@ -33,12 +38,12 @@ class Answers extends Component {
 	render(){
 		return(
 			<div>
-				<ul>
+			<br />
 			  		{this.state.answers.map((item,index)=>{
-				return <p key={index} class="d-inline"><li><label id={index}>{item[0]}</label></li>
-						</p>
+				return <div key={index}><AnswerData answerText={item[0]} aid={item[1]}
+				user={item[2]} dateOfPosted={item[3]} no={index+1}/>
+						</div>
 					})}
-			</ul>
 			</div>
 		)
 	}

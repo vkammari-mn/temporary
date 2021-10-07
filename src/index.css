@@ -13,6 +13,12 @@ body {
   form label {
     width: 25%;
   }
+  small {
+ 	font-size: 1px;
+  }
+  br {
+  line-height: 1px;
+  }
 span {
             display: block;
             overflow: hidden;
@@ -23,15 +29,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.bord {
+	border-width: 2px;
+	border-style: solid;
+	border-color: black;
+}
 #btn,#lgn {
   padding-left: 2.5rem;
   padding-right: 2.5rem;
 }
 /* Split the screen in half */
 .split {
-  /*height: 100%;*/
-  /*width: 50%;*/
-  /*position: fixed;*/
   z-index: 1;
   top: 0;
   overflow-x: hidden;
@@ -55,7 +63,7 @@ h1 {
 /* Control the right side */
 .right {
   padding-top: 50px;
-  padding-left: 900px;
+  padding-left: 800px;
   margin: auto;
   right: 0;
   background-color: white;

@@ -8,6 +8,7 @@ import { unstable_concurrentAct } from 'react-dom/test-utils';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
+
  
 class Login_comp extends Component {
     constructor(props){
@@ -20,6 +21,9 @@ class Login_comp extends Component {
         this.clickTextUser = this.clickTextUser.bind(this);
         this.clickClear = this.clickClear.bind(this);
 		this.login = this.login.bind(this);
+		<br />
+				  {/*sessionStorage.getItem("type") === "moderator" && <input type="button" value="My Space" class="btn-info btn-lg" onClick={()=>this.setState({display: "MySpace"})}/>*/}
+		{/*this.state.display === "MySpace" && <ModeratorQuestions />*/}
    }
     refresh() {
         window.location.reload(false);

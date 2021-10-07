@@ -1,25 +1,33 @@
 import React, { useState, useEffect} from 'react';
-import {useHistory} from 'react-router-dom';
-import axios from 'axios';
-import {Redirect} from 'react-router-dom';
 import PropTypes from 'prop-types';
-//import Header from './Header'
 
-function Login({ setToken }) {
+function Login() {
 	const [user,setUser]=useState('');
 	const [password, setPassword]=useState(''); 
+	//const [type, setType] = useState('');
 	/*const hist = useHistory();
 	useEffect (() => { if (localStorage.getItem('user-info')) {
 	hist.push("/add")
 	}
 	}, [])*/
+	
+	useEffect(() => {
+		sessionStorage.removeItem("qid")
+		sessionStorage.removeItem("type")
+		sessionStorage.removeItem("question")
+		sessionStorage.removeItem("token")
+		sessionStorage.removeItem("username")
+		//setType("user")
+		//console.log(type)
+	});
+	
 	async function login(){
 		//console.warn(user,password);
 		if(user == "" || password ==  ""){
 			alert("please enter username or password")
 			return;
 		}
-		const url = "http://mnipdrbhavanam:8088/LSForum/login/Validation?username="+user+"&password="+password	
+		const url = "http://mnipdrbhavanam:8888/lsforum/login/Validation?username="+user+"&password="+password
 		
 		let result = await fetch(url,{
 			method:'GET',
@@ -30,13 +38,16 @@ function Login({ setToken }) {
 			},
 			body: JSON.stringify()
 		})
-
+		
 
 		const res = await result.json();
-		
+		console.log(res.token,res)
 		if(res.token){
 			//alert('valid')
 			sessionStorage.setItem("token",res.token)
+			sessionStorage.setItem("username",res.username)
+			sessionStorage.setItem("type",res.type)
+			sessionStorage.setItem("modTopics",res.topic)
 			window.location.href = "http://mnipdvkammari:3000/home"			
 		}		
 		else{
@@ -57,13 +68,22 @@ function Login({ setToken }) {
             <div class="centered">
 		<div>
 		<div className="col-sm-6 offset-sm-3"> 
-		<label class="d-inline">User</label><br /><input type="text" placeholder="user" onChange={(e)=>setUser(e.target.value)} value={user} className="d-inline border-1 border-primary form-control" />
+		<label class="d-inline">Usser</label><br /><input type="text" placeholder="user" onChange={(e)=>setUser(e.target.value)} value={user} className="d-inline border-1 border-primary form-control" required/>
 		<br />
 		
 		<label class="d-inline">Password</label><br /><input type="password" placeholder="password"
-		 onChange={(e)=>setPassword(e.target.value)} value={password} className="d-inline border-1 border-primary form-control" />
+		 onChange={(e)=>setPassword(e.target.value)} value={password} className="d-inline border-1 border-primary form-control" required/>
 		<br/>
-		<label>Don't have an account?</label>&nbsp;<a href="http://mnipdvkammari:3001/signup">Sign up</a>
+		{/*<label class="d-inline">User Type</label>
+		<br/>
+		<select class="d-inline border-1 border-primary form-select form-control sm" onChange={(e)=>setType(e.target.value)} name="type">
+                    <option value="">select</option>
+					<option value="user">user</option>
+                    <option value="moderator">moderator</option>
+                    <option value="admin">admin</option>
+       </select>*/}
+		<br />
+		<label>Don't have an account?</label>&nbsp;&nbsp;<a href="http://mnipdvkammari:3000/signup">Sign up</a>
 		<br/>
 		<button onClick={login} className="btn btn-primary " >Login</button>&nbsp;&nbsp;&nbsp;<button onClick={(e)=>(setUser(""),setPassword(""))} className="btn btn-danger" >clear</button>
 		</div>
