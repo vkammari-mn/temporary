@@ -27,12 +27,15 @@ class Answers extends Component {
 			const aid = p['aid']
 			const username = p['username']
 			const date = p['dateOfPosted']
-			console.log(p)
+			//console.log(p)
 			this.setState({pre : [ans,aid,username,date]})
 			let {answers, pre} = this.state
 			answers.push(pre)
 			//console.log(ans,aid)
 		}
+		var update = {}
+		update["1wqwq"] = true
+		this.setState(update)
 		//console.log(this.state.answers)
 	}
 	render(){

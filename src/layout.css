@@ -11,13 +11,14 @@
     
     /* Set gray background color and 100% height */
     .sidenav {
-      padding-top: 20px;
+      padding-top: 70px;
       background-color: #f1f1f1;
-      height: 100%;
+      height: auto;
+      border: 5px;
     }
     
     /* Set black background color, white text and some padding */
-    footer {
+    .footer {
       background-color: #555;
       color: white;
       padding: 15px;

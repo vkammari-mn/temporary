@@ -1,18 +1,20 @@
 import React,{useState, useEffect} from 'react';
 import validation from "./validation";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import AllTopics from "./components/allTopics.js"
+import AllTopics from "./allTopics.js"
 
-const SignUp = () => {
+const SignUp = (props) => {
 
     const [userRegistration, setUserRegistration] = useState({
+		displayregistration: "",
         username: "",	
         email: "",
         phone: "",
         password: "", 
 		type: "user",
-		fullname : ""
- 
+		fullname : "",
+		dbotp : "",
+		userotp : "" 
     });
 	useEffect(() => {
 		sessionStorage.removeItem("topics")
@@ -55,10 +57,24 @@ const SignUp = () => {
 					topics : sessionStorage.getItem("topics")
                 })
             });
-			//const res = result.json()
-			if(result.status == 200){
-				alert("user created!, do login")
-				window.location.href = "http://mnipdvkammari:3000/login"
+			const res = await result.json()
+			//console.log(res)
+			//console.log(result)
+			if(res.username === "error"){
+				alert("user exists")
+				setUserRegistration("")
+			}
+			else{
+				if(result.status === 200){
+					if(props.admin === "true"){
+						alert("user created!")
+						window.location.reload()
+					}
+					else{
+						alert("user created!, do login")
+						window.location.href = "http://mnipdvkammari:3000/login"
+					}
+				}
 			}
             
         }catch(e) {
@@ -71,27 +87,70 @@ const SignUp = () => {
 		//console.log(userRegistration)
         setErrors(validation(userRegistration))
 		const errors = validation(userRegistration) 
-		console.log("submit")
-		console.log(errors)
 		if(errors.username || errors.fullname || errors.password || errors.email || errors.phone){
-			console.log("else")
+			//console.log("else")
 			//alert("Re-enter details")
 			setUserRegistration("")
 			//setErrors("")
 		}
 		else{
-			postData();
+			if(props.admin === "true"){
+				postData();
+			}
+			else{
+				if(userRegistration.dbotp === userRegistration.userotp ){
+					if(userRegistration.userotp !== ""){	
+						postData();
+					}
+					else{
+						alert("Enter Otp")
+					}					
+				}
+				else{
+					alert("Invalid otp")
+					setUserRegistration("")
+				}
+			}
+		}		
+    }
+	async function otpGenerate() {
+		setErrors(validation(userRegistration))
+		if(errors.username || errors.fullname || errors.password || errors.email || errors.phone){
+			//console.log("else")
+			//alert("Re-enter details")
+			setUserRegistration("")
+			//setErrors("")
+		}
+		else{
+			const reg = "displayregistration"
+			const val = "2323"
+			setUserRegistration({...userRegistration, [reg] : val });
+			const url = "http://mnipdrbhavanam:8888/lsforum/login/otpverification"
+		let result = await fetch(url,{
+			method:'POST',
+			mode:'cors',
+			headers: {
+				"Content-Type": "application/json",
+				"Accept": "application/json"
+			},
+			body: JSON.stringify({
+				email: userRegistration.email
+			})
+		})
+		const res = await result.json()
+			setUserRegistration({...userRegistration, dbotp : res['otp'] });
+			console.log(res['otp'])
 		}
 		
-    }
-
+	}
     return (
         <div className="split col-sm-4 offset-sm-4">
 			<br />
-			<h2>Sign Up</h2>
+			{props.admin !== "true" && <h2>Sign Up</h2>}
+			{props.admin === "true" && <h2>Create User</h2>}
 			<br/>
 			
-            <form action="" onSubmit={handleSubmit}>
+            
                 <div className="form-group">
                     <label htmlFor="username" class="d-inline">Username :</label>&nbsp;&nbsp;&nbsp;<input className="border-1 border-primary form-control d-inline col-sm-2" placeholder="username" type="text" value={userRegistration.username}  onChange={handleInput} name="username" id="username"/>
                      {errors.username && <p className="text-danger">{errors.username}</p>}
@@ -123,21 +182,20 @@ const SignUp = () => {
 					<option>select</option>
                     <option value="user">user</option>
                     <option value="moderator">moderator</option>
-                    <option value="admin">admin</option>
+                    {props.admin === "true" && <option value="admin">admin</option>}
               </select>
-			  <br />
-	<br />
 			  {userRegistration.type === "moderator" && <div>
 			  <AllTopics />
 			  </div>}
 				<br />
 				<br />
-				<p class="d-inline">Already have an account!</p>&nbsp;&nbsp;<a class="d-inline" href="http://mnipdvkammari:3000">Login</a>
+				{props.admin !== "true" && <p class="d-inline">Already have an account!</p>}&nbsp;&nbsp;{props.admin !== "true" && <a class="d-inline" href="http://mnipdvkammari:3000">Login</a>}
 				<br />
 				<br />
-                <button type="submit" class="btn-sm btn-primary">Registration</button> &nbsp;&nbsp;
-                <button type=	"reset" class="bnt-sm btn-danger" onClick={()=>(setUserRegistration(""),setErrors(""))}>Cancel</button> 
-            </form>
+				{props.admin !== "true" && <span><button class="btn-sm btn-primary d-inline" onClick={otpGenerate}>Get Otp</button><input class="border-1 border-primary form-control d-inline" name="userotp" value={userRegistration.userotp} onChange={handleInput} type="text" placeholder="Enter Otp"/><br /><br /></span>}
+                <button onClick={handleSubmit} class="btn-sm btn-primary">Registration</button> &nbsp;&nbsp;
+                <button type=	"reset" class="btn-sm btn-danger" onClick={()=>(setUserRegistration(""),setErrors(""))}>Cancel</button>
+            
             <div>
                 {
                     records.map((curElem) => {

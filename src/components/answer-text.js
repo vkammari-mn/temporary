@@ -1,7 +1,7 @@
 import React from 'react';
-import editAnswer from './editImage.png';
-import deleteAnswer from './removeImage.png';
-import reportAnswer from './reportImage.png';
+import editAnswer from './images/editImage.png';
+import deleteAnswer from './images/removeImage.png';
+import reportAnswer from './images/reportImage.png';
 class AnswerData extends React.Component{
 	constructor(props){
 		super(props);
@@ -19,8 +19,8 @@ class AnswerData extends React.Component{
 	}
 	async deleteAnswer(){
 		const url = "http://mnipdrbhavanam:8888/lsforum/login/deleteanswer?aid="+this.props.aid
-		console.log("SDsd")
-		let result = await fetch(url,{
+		//console.log("SDsd")
+		await fetch(url,{
 			method:'GET',
 			mode:'cors',
 			headers: {
@@ -48,8 +48,8 @@ class AnswerData extends React.Component{
 					fullname : this.state.name
                 })
             });
-			const res = await result.json()
-			console.log(result)
+			await result.json()
+			//console.log(result)
 			/*if(result.status == 200){
 				alert("user created!, do login")
 				window.location.href = "http://mnipdvkammari:3000/login"
@@ -84,11 +84,11 @@ class AnswerData extends React.Component{
         }catch(e) {
             //console.log(e)
         }
-		alert("answer reported")
+		window.location.reload()
 	}
 	async reportAnswer(){
 		try {
-            let result = await fetch('http://mnipdrbhavanam:8888/lsforum/login/reportanswer',{
+            await fetch('http://mnipdrbhavanam:8888/lsforum/login/reportanswer',{
                 method: 'post',
                 mode:'cors',
                 headers: {
@@ -111,7 +111,8 @@ class AnswerData extends React.Component{
 			<div class="container">
 			<div><div class="row">
 			<div class="col-sm-12">
-			<p class="inline">{this.props.no}. {this.props.answerText}</p>
+			<h5>{this.props.no}. {this.props.question}</h5>
+			<pre ><p class="inline ">A:-{this.props.answerText}</p></pre>
 			
 			</div>
 			<div class="col-sm-1">
@@ -123,15 +124,12 @@ class AnswerData extends React.Component{
 			</div>
 			<div class="row">
 			<div class="col-sm-5">
-			<hr />
-			{sessionStorage.getItem("type") != "user" && <div><input type="image" src={editAnswer} title="Edit Answer" onClick={this.editAnswer}/>&nbsp;&nbsp;<input type="image" src={deleteAnswer} onClick={this.deleteAnswer} title="Delete Answer"/>
-			</div>}
-			<input type="image" src={reportAnswer} title="Report Answer" onClick={this.reportAnswer} />
+			{sessionStorage.getItem("type") != "user" && <div class="d-inline"><input type="image" src={editAnswer} title="Edit Answer" onClick={this.editAnswer}/>&nbsp;&nbsp;<input type="image" src={deleteAnswer} onClick={this.deleteAnswer} title="Delete Answer"/>
+			</div>}&nbsp;&nbsp;{this.props.bool != "true" && <input type="image" src={reportAnswer} title="Report Answer" onClick={this.reportAnswer} />}
 			</div>
-			<div class="col-sm-3"></div>
+			<div class="col-sm-3"><small class="text-danger">{this.props.reportedUsername}</small></div>
 			<div class="col-sm-4">
-			<hr />
-			<div class="text-end"><small class="text-end"><b>postedBy: </b>{this.props.postedBy}- {this.props.dateOfPosted}</small></div></div>
+			<div class="text-end"><small class="text-danger">Answered By: {this.props.user}- {this.props.dateOfPosted}</small></div></div>
 			</div>
 			</div>
 			<br />
@@ -143,12 +141,13 @@ class AnswerData extends React.Component{
 			<div >
 			  <div class="form-group">
 				<h6>Edit</h6>
-			    <label  class="d-inline">Answer :</label>&nbsp;&nbsp;&nbsp;&nbsp;<input className="border-1 border-primary form-control d-inline col-sm-2" placeholder="username" type="text" value={this.state.answer}  onChange={(e)=>this.setState({answer: e.target.value})} />
+			    <label  class="d-inline">Answer :</label>&nbsp;&nbsp;&nbsp;&nbsp;<textarea className="border-1 border-primary form-control d-inline col-sm-2" placeholder="username" type="text" value={this.state.answer}  onChange={(e)=>this.setState({answer: e.target.value})} />
 			  </div>
 	{/*<AllTopics />*/}
 			  
 			  <br />
-			  <button onClick={this.commitChange} className="btn btn-primary">Commit Changes</button><hr />
+			  {this.props.bool != "true" && <button onClick={this.commitChange} className="btn btn-primary">Commit Changes</button>}
+			  {this.props.bool == "true" &&<button onClick={this.commitChange} className="btn btn-primary">Save and remove report</button>}<hr />
 			</div>
 			</div>
 			<div class="col-sm-4">

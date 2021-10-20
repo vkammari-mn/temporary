@@ -71,7 +71,7 @@ class About extends React.Component{
 			<div class="container-fluid">    
 			  <div class="row content">
 			    <div class="col-sm-2 sidenav">
-				  <input type="button" value="Home" class="btn-info btn-lg" onClick={this.home}/>
+				  <input type="button" value="Home" class="btn-info btn-lg bttn" onClick={this.home}/>
 				  <br />
 		<br />
 				  
@@ -79,7 +79,7 @@ class About extends React.Component{
 			    <div class="col-sm-10 text-left"> 
 					<div>
 					<h2>About</h2>
-				<h6><pre class="text-wrap">Forum for life sciences (stack-overflow like platform for life science
+				<h6><pre class="text-wrap"><p>Forum for life sciences (stack-overflow like platform for life science
 students/research)
 Build a question-and-answer platform for professional and life science student/ scholars
 Roles in this project
@@ -114,7 +114,7 @@ Non-Functional Requirements
 Unit Test (through Junit or other equivalent frameworks)
 Continuous Integration (CI) / Continuous Deployment (CD) - using Jenkins or any other tool
 Performance
-Security - SAST</pre></h6>
+Security - SAST</p></pre></h6>
 			</div>
 			    </div>
 			    <div class="col-sm-2 sidenav">

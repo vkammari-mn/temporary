@@ -1,6 +1,6 @@
 import React from 'react';
-import editUser from './editImage.png';
-import deleteUser from './removeImage.png';
+import editUser from './images/editImage.png';
+import deleteUser from './images/removeImage.png';
 
 class UserData extends React.Component{
 	constructor(props){
@@ -44,7 +44,7 @@ class UserData extends React.Component{
 	}
 	async submit(){
 		try {
-            let result = await fetch('http://mnipdrbhavanam:8888/lsforum/login/edituserdetails',{
+            await fetch('http://mnipdrbhavanam:8888/lsforum/login/edituserdetails',{
                 method: 'post',
                 mode:'cors',
                 headers: {
@@ -72,7 +72,7 @@ class UserData extends React.Component{
 			<div class="container">
 			<div class="row">
 			<div class="col-sm-4">
-			<input type="image" src={editUser} onClick={this.editUserDetails}/>&nbsp;<input type="image" src={deleteUser} onClick={this.deleteUser}/>&nbsp;<p class="inline">{this.props.index}. {this.props.username}</p>
+			<input type="image" alt="Edit User Image" src={editUser} onClick={this.editUserDetails}/>&nbsp;<input type="image" alt="Delete User Image" src={deleteUser} onClick={this.deleteUser}/>&nbsp;<p class="inline">{this.props.index}. {this.props.username}</p>
 			</div>
 			<div class="col-sm-4">
 			<p class="inline">{this.props.name}</p></div>

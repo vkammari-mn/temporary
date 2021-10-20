@@ -27,7 +27,6 @@ class Questions extends Component {
 	}
 	async displayQuestions(){
 		const url = "http://mnipdrbhavanam:8888/lsforum/login/questions"
-		
 		let result = await fetch(url,{
 			method:'GET',
 			mode:'cors',
@@ -50,6 +49,8 @@ class Questions extends Component {
 			let {qArr, inp} = this.state
 			qArr.push(inp)
 		}
+		console.log(this.state.qArr)
+		//window.location.reload()
 		var update = {}
 		update["1wqwq"] = true
 		this.setState(update)
@@ -75,6 +76,7 @@ class Questions extends Component {
 			const username = v['username']
 			const topic = v['topic']
 			const date = v['dateOfPosted']
+			console.log(date)
 			this.setState({[qid]: false})
 			this.setState({inp : [question,qid,username,topic,date]})
 			let {qArr, inp} = this.state
@@ -106,8 +108,6 @@ class Questions extends Component {
 		else{
 			this.displaymodQuestions()
 		}
-		
-		//console.log(this.state.)
 	}
 	returnAnswer(event) {
 		//console.log(this.state[event.target.value])
@@ -128,7 +128,7 @@ class Questions extends Component {
 		}
 		else{
 		try {
-            let result = await fetch('http://mnipdrbhavanam:8888/lsforum/login/EnterQuestion',{
+            await fetch('http://mnipdrbhavanam:8888/lsforum/login/EnterQuestion',{
                 method: 'post',
                 mode:'cors',
                 headers: {
@@ -164,7 +164,7 @@ class Questions extends Component {
 		//console.log("in",this.state.question)
 		//console.log(this.state.answer)
 		try {
-            let result = await fetch('http://mnipdrbhavanam:8888/lsforum/login/EnterAnswer',{
+            await fetch('http://mnipdrbhavanam:8888/lsforum/login/EnterAnswer',{
                 method: 'post',
                 mode:'cors',
                 headers: {
@@ -212,7 +212,8 @@ class Questions extends Component {
 		return(
 			<div>
 			{this.state.display_qb && <div>
-			{this.state.display_qb && <input type="button" value="Post A Question" onClick={this.qb_act} class="btn-danger but-pos btn-lg" />}
+			{this.state.display_qb && <div>{!this.state.answer_display && <input type="button" value="Post A Question" onClick={this.qb_act} class="btn-danger but-pos btn-lg" />}</div>}
+			
 		      {!this.state.answer_display && <div><h1 >Questions</h1>
 			<br />
 			<ul>

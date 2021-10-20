@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import editQuestion from './editImage.png';
-import deleteQuestion from './removeImage.png';
+import editQuestion from './images/editImage.png';
+import deleteQuestion from './images/removeImage.png';
 import SingleTopic from './singleTopic.js';
-import reportQuestion from './reportImage.png';
+import reportQuestion from './images/reportImage.png';
 class Question_text extends Component {
 	constructor(props){
 		super(props);
@@ -19,7 +19,7 @@ class Question_text extends Component {
 		this.setState({question : this.props.data})
 		this.setState({topic : this.props.topic})
 		this.setState({qid: this.props.qid})
-		console.log(this.props)
+		//console.log(this.props)
 		sessionStorage.setItem("topics",this.props.topic)
 	}
 	async commitChanges(){
@@ -68,12 +68,11 @@ class Question_text extends Component {
 	}
 	render(){
 		return(
-			<div class="container">
+			<div class="pad">
 			<div><div class="row">
-			<div class="col-sm-8">
-			
+			<div class="col-sm-8	">
 			{/*<input type="image" src={editQuestion} onClick=""/>&nbsp;&nbsp;*/}
-			<h6>{this.props.no}. {this.props.data}</h6>	
+			<pre><h6>{this.props.no}. {this.props.data}</h6></pre>
 					
 			</div>
 			<div class="col-sm-3">
@@ -87,11 +86,11 @@ class Question_text extends Component {
 			<div class="col-sm-6">
 			{sessionStorage.getItem("type") === "admin" && <input title="Edit Question" type="image" src={editQuestion} onClick={this.questionClickEdit}/>}{sessionStorage.getItem
 			("mquestion") === "true" && <input title="Edit Question" type="image" src={editQuestion}  onClick={this.questionClickEdit}/>}&nbsp;{sessionStorage.getItem("type") === "admin" && <input type="image" title="Delete Question" src = {deleteQuestion} value={this.props.qid} onClick={this.props.iclick}></input>}&nbsp;{sessionStorage.getItem
-			("mquestion") === "true" && <input type="image" title="Delete Question" src = {deleteQuestion} value={this.props.qid} onClick={this.props.iclick}/>}
+			("mquestion") === "true" && <input type="image" title="Delete Question" src = {deleteQuestion} value={this.props.qid} onClick={this.props.iclick}/>}&nbsp;&nbsp;
 			{this.props.bool != "true" &&<input type="image" title="Report Question" src={reportQuestion} onClick={this.reportQuestion} />}
 			</div>
 			<div class="col-sm-3"><small class="text-danger">{this.props.reporteduser}</small></div>
-			<div class="col-sm-3 text-end"><small class="text-danger">Posted by: {this.props.user}-{this.props.date}</small></div>
+			<div class="col-sm-3 text-end"><small class="text-danger ">Asked by: {this.props.user}-{this.props.date}</small></div>
 			</div>
 			</div>
 			<br />

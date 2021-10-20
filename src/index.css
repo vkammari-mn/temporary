@@ -29,10 +29,24 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.bttn{
+	width:160px;
+}
 .bord {
 	border-width: 2px;
 	border-style: solid;
 	border-color: black;
+}
+.pad {
+	padding:0px;
+}
+pre {
+	overflow-x: auto;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
 }
 #btn,#lgn {
   padding-left: 2.5rem;
@@ -68,18 +82,3 @@ h1 {
   right: 0;
   background-color: white;
 }
-
-/* If you want the content centered horizontally and vertically */
-/*.centered {*/
-  /*position: absolute;*/
-  /*top: 50%;*/
-  /*left: 50%;*/
-  /*transform: translate(-50%, -50%);*/
-  /*text-align: center;*/
-/*}*/
-
-/* Style the image inside the centered container, if needed */
-/*.centered img {*/
-  /*width: 150px;*/
-  /*border-radius: 50%;*/
-/*}*/

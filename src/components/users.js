@@ -1,13 +1,16 @@
-import React,{Component,useState,useEffect} from 'react';
+import React,{Component} from 'react';
 import UserData from './user_data.js';
+import SignUp from './SignUp.js';
 
 class Users extends Component{
 	constructor(props){
 		super(props);
 		this.state={
-			userArray: []
+			userArray: [],
+			createUser: false
 		}
 		this.get_users = this.get_users.bind(this)
+		this.createUser = this.createUser.bind(this)
 	}
 	async get_users(){
 		const url = "http://mnipdrbhavanam:8888/lsforum/login/username"
@@ -42,13 +45,17 @@ class Users extends Component{
 			//console.log(this.state.userArray)
 		
 		}
+		createUser(){
+			this.setState({createUser: true})
+		}
 	render(){
 		return(
 			<div>
-			<div>
+			{ !this.state.createUser && <div>
 			<ul>
 			<div class="container">
 			<div class="row">
+			<button type="button" onClick={this.createUser} class="btn-sm btn-primary "><b>Create User</b></button>
 			<div class="col-sm-4">
 			&nbsp;&nbsp;&nbsp;&nbsp;<b class="inline">User-Name</b></div>
 			<div class="col-sm-4">
@@ -64,7 +71,9 @@ class Users extends Component{
 				</div>
 			})}
 			</ul>
-			</div>
+			</div>}
+			{this.state.createUser && <div>
+			<SignUp admin="true" /></div>}
 			</div>
 		)
 	}

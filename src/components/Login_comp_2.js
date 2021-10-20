@@ -23,7 +23,7 @@ function Login() {
 	
 	async function login(){
 		//console.warn(user,password);
-		if(user == "" || password ==  ""){
+		if(user === "" || password ===  ""){
 			alert("please enter username or password")
 			return;
 		}
@@ -68,7 +68,7 @@ function Login() {
             <div class="centered">
 		<div>
 		<div className="col-sm-6 offset-sm-3"> 
-		<label class="d-inline">Usser</label><br /><input type="text" placeholder="user" onChange={(e)=>setUser(e.target.value)} value={user} className="d-inline border-1 border-primary form-control" required/>
+		<label class="d-inline">User</label><br /><input type="text" placeholder="user" onChange={(e)=>setUser(e.target.value)} value={user} className="d-inline border-1 border-primary form-control" required/>
 		<br />
 		
 		<label class="d-inline">Password</label><br /><input type="password" placeholder="password"
@@ -85,7 +85,7 @@ function Login() {
 		<br />
 		<label>Don't have an account?</label>&nbsp;&nbsp;<a href="http://mnipdvkammari:3000/signup">Sign up</a>
 		<br/>
-		<button onClick={login} className="btn btn-primary " >Login</button>&nbsp;&nbsp;&nbsp;<button onClick={(e)=>(setUser(""),setPassword(""))} className="btn btn-danger" >clear</button>
+		<button onClick={login} className="btn btn-primary " >Login</button>&nbsp;&nbsp;&nbsp;<button onClick={(e)=>(setUser(""), setPassword(""))} className="btn btn-danger" >clear</button>
 		</div>
 		</div>
             </div>
